@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file alias="sunset0.jpg">images/sunset0.jpg</file>
+        <file alias="sunset1.jpg">images/sunset1.jpg</file>
+        <file alias="sunset2.jpg">images/sunset2.jpg</file>
+        <file alias="android.png">images/Android_robot.png</file>
+        <file alias="ios.jpg">images/ios.jpg</file>
+        <file>ListHighlight.qml</file>
+        <file>ListDelegate.qml</file>
+    </qresource>
+</RCC>
