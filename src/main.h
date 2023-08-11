@@ -2,6 +2,16 @@
 #define MAINWINDOW_H
 
 #include <QtWidgets>
+#include <iostream>
+#include <vector>
+// FFmpeg
+extern "C" {
+#include <libavformat/avformat.h>
+#include <libavcodec/avcodec.h>
+#include <libavutil/avutil.h>
+#include <libavutil/pixdesc.h>
+#include <libswscale/swscale.h>
+}
 
 class MainWindow : public QMainWindow
 {

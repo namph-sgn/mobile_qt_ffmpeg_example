@@ -5,7 +5,7 @@ project(
   VERSION 1.0
   DESCRIPTION
     "An example repository to showcase how to build a simple C++ android app with Qt/QML and CMake"
-  LANGUAGES CXX)
+  LANGUAGES CXX C)
 
 find_package(Qt5 REQUIRED COMPONENTS Core Quick Widgets)
 set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
@@ -58,3 +58,30 @@ target_link_libraries(QMLDesktopExample PUBLIC nx_build_info)
 target_compile_features(nx_build_info PRIVATE cxx_std_17)
 
 
+# Include ffmpeg
+find_package(PkgConfig REQUIRED)
+set(ffmpeg_dir ${CMAKE_SOURCE_DIR}/libs/ffmpeg)
+target_include_directories(QMLDesktopExample PUBLIC ${CMAKE_SOURCE_DIR}/libs/ffmpeg/include/armeabi-v7a)
+
+set(FFMPEG_LIBS libavcodec libavdevice libavfilter libavformat libavutil libswresample libswscale)
+foreach(INDV_LIB ${FFMPEG_LIBS})
+  add_library(${INDV_LIB} SHARED IMPORTED)
+  set_target_properties(${INDV_LIB} PROPERTIES
+    IMPORTED_LOCATION ${ffmpeg_dir}/lib/armeabi-v7a/${INDV_LIB}.so
+  )
+endforeach()
+
+# add_library(libavcodec SHARED IMPORTED)
+# set_target_properties(libavcodec PROPERTIES
+#     IMPORTED_LOCATION ${ffmpeg_dir}/lib/armeabi-v7a/libavcodec.so
+# )
+# target_link_libraries(ffmpeg PUBLIC
+#     ${ffmpeg_dir}/lib/armeabi-v7a/libavcodec.so
+#     ${ffmpeg_dir}/lib/armeabi-v7a/libavdevice.so
+#     ${ffmpeg_dir}/lib/armeabi-v7a/libavfilter.so
+#     ${ffmpeg_dir}/lib/armeabi-v7a/libavformat.so
+#     ${ffmpeg_dir}/lib/armeabi-v7a/libavutil.so
+#     ${ffmpeg_dir}/lib/armeabi-v7a/libswresample.so
+#     ${ffmpeg_dir}/lib/armeabi-v7a/libswscale.so)
+
+target_link_libraries(QMLDesktopExample PUBLIC ${FFMPEG_LIBS})
